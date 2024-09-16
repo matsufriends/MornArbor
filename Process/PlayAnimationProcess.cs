@@ -8,7 +8,7 @@ namespace MornArbor.Process
         [SerializeField] private AnimationClip _animationClip;
         [SerializeField] private float _transitionDuration;
         private float _startTime;
-        public override float Progress => _animationClip ? Mathf.Clamp01((Time.time - _startTime) / _animationClip.length) : 1f;
+        public override float Progress => _animationClip ? Mathf.Clamp01((Time.time - _startTime) / _animationClip.length * _animator.speed) : 1f;
 
         public override void OnStateBegin()
         {

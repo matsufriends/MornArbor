@@ -8,8 +8,22 @@ namespace MornArbor.Process
     {
         [SerializeField] private VideoPlayer _videoPlayer;
         [SerializeField] private VideoClip[] _clips;
-        [SerializeField] private StateLink _nextStateLink;
-        public override float Progress => _videoPlayer ? Mathf.Clamp01(_videoPlayer.frame / (float)_videoPlayer.frameCount) : 1f;
+        public override float Progress
+        {
+            get
+            {
+                if (_videoPlayer)
+                {
+                    if (_videoPlayer.frame > 0 && !_videoPlayer.isPlaying)
+                    {
+                        return 1;
+                    }
+                    return Mathf.Clamp01(_videoPlayer.frame / (float)_videoPlayer.frameCount);
+                }
+
+                return 1f;
+            }
+        }
 
         public override void OnStateBegin()
         {
